@@ -17,7 +17,49 @@ We've now seen several people wanting to use 11ty but finding the path complicat
 
 Seeing as the [eleventy-base-blog](https://github.com/11ty/eleventy-base-blog) is such a good place to start, it makes sense to have a bunch of themes ready to drop into it.
 
-This website will showcase some themes made with CSS stylesheets for use with the 11ty base blog, and make them easily downloadable.
+This website will soon showcase some themes made with CSS stylesheets for use with the 11ty base blog, and make them easily downloadable.
+
+## Want to contribute a theme?
+
+YESSSSS please do! Please submit your 11ty base blog stylesheets, let's goooooo
+
+You can find me in quite a few places, check my [contact details](https:sarajoy.dev/#find) to pick your preferred route.
+
+You can drop me your own `index.css` file from your 11ty base blog, or whichever other stylesheets you have in your CSS bundle.
+
+If you want to start from scratch, go ahead! I would then advise you to keep the following within your stylesheet:
+
+```css
+/* Turn on the light/dark/auto mode switcher if the theme uses color-scheme */
+#mode-switcher {
+	display: block !important;
+}
+
+/* Keep everything below within alternative CSS for sensible post numbering in postlist, and visually-hidden elements */
+
+/* https://www.a11yproject.com/posts/how-to-hide-content/ */
+.visually-hidden {
+	clip: rect(0 0 0 0);
+	clip-path: inset(50%);
+	height: 1px;
+	overflow: hidden;
+	position: absolute;
+	white-space: nowrap;
+	width: 1px;
+}
+/* Posts list */
+.postlist {
+	list-style-type: "";
+}
+.postlist-item {
+	counter-increment: start-from -1;
+}
+.postlist-item:before {
+	content: "" counter(start-from, decimal-leading-zero) ". ";
+	text-align: right;
+	margin-left: -1.5rem;
+}
+```
 
 {% set postsCount = collections.posts | length %}
 {% set latestPostsCount = postsCount | min(numberOfLatestPostsToShow) %}
