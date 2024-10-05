@@ -1,6 +1,9 @@
-/* Turn on the light/dark/auto mode switcher if the theme uses color-scheme */
-#mode-switcher {
-  display: block !important;
+* {
+	box-sizing: border-box;
+}
+
+@view-transition {
+	navigation: auto;
 }
 
 html {
@@ -28,6 +31,11 @@ header ul {
   color: currentColor !important;
 }
 
+/* Turn on the light/dark/auto mode switcher if the theme uses color-scheme */
+
+#mode-switcher {
+  display: block !important;
+}
 
 /* Keep everything below within alternative CSS for sensible post numbering in postlist, and visually-hidden elements */
 
