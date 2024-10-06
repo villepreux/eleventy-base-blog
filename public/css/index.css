@@ -15,6 +15,7 @@
 
 #theme-switching select {
 	height: 1.75em;
+	max-width: 8em;
 }
 
 body {

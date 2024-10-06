@@ -1,3 +1,5 @@
+/* CSS Author: Sara Joy - https://sarajoy.dev */
+
 * {
 	box-sizing: border-box;
 }
@@ -19,6 +21,7 @@ html {
 
 header {
   display: flex;
+	flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
 	font-size: 1.2rem;
@@ -41,13 +44,44 @@ header, main, footer {
 	margin-inline: auto;
 }
 
+footer {
+	text-align: center;
+}
+
 h1, h2, h3 {
 	font-family: var(--display-font);
+	font-weight: normal;
 }
 
 :not(pre) > code[class*="language-"], pre[class*="language-"] {
 	background: light-dark(hsl(0, 0%, 15%), hsl(0, 0%, 10%));
 }
+
+/* Tags list */
+.post-metadata {
+	display: inline-flex;
+	flex-wrap: wrap;
+	gap: .5em;
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+.post-metadata time {
+	margin-right: 1em;
+}
+
+.links-nextprev {
+	display: flex;
+	justify-content: space-between;
+	gap: .5em 1em;
+	list-style: "";
+	padding: 1em 0;
+}
+.links-nextprev-next {
+	text-align: right;
+	flex-grow: 1;
+}
+
 
 /* Turn on the light/dark/auto mode switcher if the theme uses color-scheme */
 #mode-switcher {
