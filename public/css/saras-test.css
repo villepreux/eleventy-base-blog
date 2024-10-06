@@ -29,7 +29,7 @@ header ul {
 
 /* Turn on the light/dark/auto mode switcher if the theme uses color-scheme */
 #mode-switcher {
-	display: block;
+	display: block !important;
 }
 
 /* Keep everything below within alternative CSS for sensible post numbering in postlist, and visually-hidden elements */
