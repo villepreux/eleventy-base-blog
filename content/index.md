@@ -23,7 +23,7 @@ This website will soon showcase some themes made with CSS stylesheets for use wi
 
 YESSSSS please do! Please submit your 11ty base blog stylesheets, let's goooooo
 
-You can find me in quite a few places, check my [contact details](https:sarajoy.dev/#find) to pick your preferred route.
+You can find me in quite a few places, check my [contact details](https://sarajoy.dev/#find) to pick your preferred route.
 
 You can drop me your own `index.css` file from your 11ty base blog, or whichever other stylesheets you have in your CSS bundle.
 
