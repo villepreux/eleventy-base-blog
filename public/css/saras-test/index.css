@@ -1,0 +1,65 @@
+* {
+	box-sizing: border-box;
+}
+
+@view-transition {
+	navigation: auto;
+}
+
+html {
+	color-scheme: light dark;
+  background-color: light-dark(thistle, indigo);
+  /* https://modernfontstacks.com/ Geometric Humanist */
+  font-family:  Avenir, Montserrat, Corbel, 'URW Gothic', source-sans-pro, sans-serif;
+	line-height: 1.4;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+	font-size: 1.2rem;
+}
+
+header ul {
+  display: flex;
+  gap: 0.75em;
+  list-style-type: "";
+  margin: 0;
+  padding: 0;
+}
+
+header, main, footer {
+	width: min(40rem, 90%);
+	margin-inline: auto;
+}
+
+/* Turn on the light/dark/auto mode switcher if the theme uses color-scheme */
+#mode-switcher {
+	display: block !important;
+}
+
+/* Keep everything below within alternative CSS for sensible post numbering in postlist, and visually-hidden elements */
+
+/* https://www.a11yproject.com/posts/how-to-hide-content/ */
+.visually-hidden {
+	clip: rect(0 0 0 0);
+	clip-path: inset(50%);
+	height: 1px;
+	overflow: hidden;
+	position: absolute;
+	white-space: nowrap;
+	width: 1px;
+}
+/* Posts list */
+.postlist {
+	list-style-type: "";
+}
+.postlist-item {
+	counter-increment: start-from -1;
+}
+.postlist-item:before {
+	content: "" counter(start-from, decimal-leading-zero) ". ";
+	text-align: right;
+	margin-left: -1.5rem;
+}

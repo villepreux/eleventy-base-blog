@@ -8,15 +8,20 @@
 
 html {
 	color-scheme: light dark;
-  background-color: light-dark(lavender, indigo);
-  /* https://modernfontstacks.com/ Geometric Humanist */
-  font-family:  Avenir, Montserrat, Corbel, 'URW Gothic', source-sans-pro, sans-serif;
+  background-color: light-dark(WhiteSmoke, hsl(200, 5%, 15%));
+  /* https://modernfontstacks.com/ Classical Humanist */
+  font-family: Optima, Candara, 'Noto Sans', source-sans-pro, sans-serif;
+	line-height: 1.4;
+
+  /* https://modernfontstacks.com/ Didone */
+	--display-font: Didot, 'Bodoni MT', 'Noto Serif Display', 'URW Palladio L', P052, Sylfaen, serif;
 }
 
 header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+	font-size: 1.2rem;
 }
 
 header ul {
@@ -25,6 +30,23 @@ header ul {
   list-style-type: "";
   margin: 0;
   padding: 0;
+}
+
+header a:not(:hover) {
+	text-decoration: none;
+}
+
+header, main, footer {
+	width: min(40rem, 90%);
+	margin-inline: auto;
+}
+
+h1, h2, h3 {
+	font-family: var(--display-font);
+}
+
+:not(pre) > code[class*="language-"], pre[class*="language-"] {
+	background: light-dark(hsl(0, 0%, 15%), hsl(0, 0%, 10%));
 }
 
 /* Turn on the light/dark/auto mode switcher if the theme uses color-scheme */

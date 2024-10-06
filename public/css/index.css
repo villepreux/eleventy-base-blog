@@ -13,6 +13,10 @@
 	background-color: #0002;
 }
 
+#theme-switching select {
+	height: 1.75em;
+}
+
 body {
 	padding-top: 2.5rem !important;
 }

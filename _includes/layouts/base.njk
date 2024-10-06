@@ -41,21 +41,7 @@
 	<body>
 		<a href="#skip" class="visually-hidden">Skip to main content</a>
 
-		<div id="theme-switching">
-			<div class="css-switching">
-				<select name="css-in-use" id="css-switcher">
-					<option value="original">Original</option>
-					<option value="saras-test">Sara's Test</option>
-				</select>
-				<a id="css-download-link" href="/css/original.css" download="">Download CSS</a>
-			</div>
-			<div id="mode-switcher" style="display: none">
-				<p class="visually-hidden" id="light-and-dark-mode-switchers">Light and dark mode switchers</p>
-				<button id="lightSwitch" aria-pressed="false" type="button" onclick="switchLight()">Light</button>
-				<button id="darkSwitch" aria-pressed="false" type="button" onclick="switchDark()">Dark</button>
-				<button id="autoSwitch" aria-pressed="true" type="button" onclick="switchAuto()">Auto</button>
-			</div>
-		</div>
+		{% include "themeswitcher.njk" %}
 
 		<header>
 			<a href="/" class="home-link">{{ metadata.title }}</a>
@@ -95,8 +81,8 @@
 			const css = sessionStorage.getItem("css");
 
 			function switchCSS(cssName) {
-				currentStyleSheet.setAttribute("href", `/css/${cssName}.css`);
-				cssLink.setAttribute("href", `/css/${cssName}.css`);
+				currentStyleSheet.setAttribute("href", `/css/${cssName}/index.css`);
+				cssLink.setAttribute("href", `/css/${cssName}/index.css`);
 				sessionStorage.setItem("css", cssName);
 			}
 

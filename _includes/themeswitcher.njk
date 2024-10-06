@@ -1,0 +1,16 @@
+<div id="theme-switching">
+  <div class="css-switching">
+    <select name="css-in-use" id="css-switcher">
+      <option value="classic">Classic (WIP)</option>
+      <option value="original">Original</option>
+      <option value="saras-test">Sara's Testing</option>
+    </select>
+    <a id="css-download-link" href="/css/original/index.css" download="">Download CSS</a>
+  </div>
+  <div id="mode-switcher" style="display: none">
+    <p class="visually-hidden" id="light-and-dark-mode-switchers">Light and dark mode switchers</p>
+    <button id="lightSwitch" aria-pressed="false" type="button" onclick="switchLight()">Light</button>
+    <button id="darkSwitch" aria-pressed="false" type="button" onclick="switchDark()">Dark</button>
+    <button id="autoSwitch" aria-pressed="true" type="button" onclick="switchAuto()">Auto</button>
+  </div>
+</div>

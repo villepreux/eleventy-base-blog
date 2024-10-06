@@ -19,7 +19,7 @@ Seeing as the [eleventy-base-blog](https://github.com/11ty/eleventy-base-blog) i
 
 This website will soon showcase themes made with CSS stylesheets for use with the 11ty base blog, and make them easily downloadable.
 
-The bar along the top of the page shows the available themes and a download link. The files you download from there can be renamed to `index.css` and dropped into your `eleventy-base-blog`'s `\public\css` folder.
+The bar along the top of the page shows the available themes and a download link. The files you download from there can be renamed to dropped into your `eleventy-base-blog`'s `\public\css` folder.
 
 ## Want to contribute a theme?
 
@@ -58,7 +58,7 @@ If you want to start from scratch, go ahead! I would then advise you to keep the
 	margin-left: -1.5rem;
 }
 ```
-Additionally, for the "Sara's Test" CSS, I've added a little light/dark/auto mode switcher. You can enable this for your own theme, by also including the following in your CSS:
+Additionally, for themes that use `color-scheme`, I've added a little built in light/dark/auto mode switcher in the top bar. You can enable this for your own theme, by also including the following in your CSS:
 ```css
 /* Enable light/dark/auto mode switcher
    if the theme uses color-scheme */
