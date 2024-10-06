@@ -19,6 +19,8 @@ Seeing as the [eleventy-base-blog](https://github.com/11ty/eleventy-base-blog) i
 
 This website will soon showcase themes made with CSS stylesheets for use with the 11ty base blog, and make them easily downloadable.
 
+The bar along the top of the page shows the available themes and a download link. The files you download from there can be renamed to `index.css` and dropped into your `eleventy-base-blog`'s `\public\css` folder.
+
 ## Want to contribute a theme?
 
 YES! Please do! Submit your 11ty base blog stylesheets, let's goooooo 🎈
