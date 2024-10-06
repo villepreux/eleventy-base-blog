@@ -26,7 +26,7 @@
 		{#- Add the contents of a file to the bundle #}
 		{%- css %}{% include "public/css/index.css" %}{% endcss %}
 		{#- Or you can add from node_modules #}
-		{# {%- css %}{% include "node_modules/prismjs/themes/prism-okaidia.css" %}{% endcss %} #}
+		{%- css %}{% include "node_modules/prismjs/themes/prism-okaidia.css" %}{% endcss %}
 
 		{#- Render the CSS bundle using inlined CSS (for the fastest site performance in production) #}
 		<style>{% getBundle "css" %}</style>
@@ -45,7 +45,7 @@
 			<div class="css-switching">
 				<select name="css-in-use" id="css-switcher">
 					<option value="original">Original</option>
-					<option value="test">Test CSS</option>
+					<option value="saras-test">Sara's Test</option>
 				</select>
 				<a id="css-download-link" href="/css/original.css" download="">Download CSS</a>
 			</div>

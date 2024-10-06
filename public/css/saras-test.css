@@ -27,13 +27,9 @@ header ul {
   padding: 0;
 }
 
-.heading-anchor::after {
-  color: currentColor !important;
-}
-
 /* Turn on the light/dark/auto mode switcher if the theme uses color-scheme */
 #mode-switcher {
-	display: block !important;
+	display: block;
 }
 
 /* Keep everything below within alternative CSS for sensible post numbering in postlist, and visually-hidden elements */

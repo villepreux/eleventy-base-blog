@@ -9,33 +9,29 @@ const numberOfLatestPostsToShow = 3;
 
 # Hello and welcome!
 
-If you've just set up your new 11ty base blog and would like to find some new themes for it, you've actually come to the right place this time ;)
+If you've just set up your new 11ty base blog and would like to find some new themes for it, this will be the right place once we've gathered some more :)
 
 ## What is this?
 
-We've now seen several people wanting to use 11ty but finding the path complicated, and frustratingly lacking in applicable themes.
+Finding drop-in themes to use with 11ty is proving tricky, as it's so very flexible and every implementation varies.
 
-Seeing as the [eleventy-base-blog](https://github.com/11ty/eleventy-base-blog) is such a good place to start, it makes sense to have a bunch of themes ready to drop into it.
+Seeing as the [eleventy-base-blog](https://github.com/11ty/eleventy-base-blog) is such a good place for people to start, it makes sense to have a bunch of themes ready to use with it.
 
-This website will soon showcase some themes made with CSS stylesheets for use with the 11ty base blog, and make them easily downloadable.
+This website will soon showcase themes made with CSS stylesheets for use with the 11ty base blog, and make them easily downloadable.
 
 ## Want to contribute a theme?
 
-YESSSSS please do! Please submit your 11ty base blog stylesheets, let's goooooo
+YES! Please do! Submit your 11ty base blog stylesheets, let's goooooo 🎈
 
-You can find me in quite a few places, check my [contact details](https://sarajoy.dev/#find) to pick your preferred route.
+You can find me in quite a few places, check my [contact details](https://sarajoy.dev/#find) to pick your preferred contact method.
 
-You can drop me your own `index.css` file from your 11ty base blog, or whichever other stylesheets you have in your CSS bundle.
+You can drop me your own `index.css` file directly from your 11ty base blog, or whichever other stylesheets you have in your CSS bundle.
 
 If you want to start from scratch, go ahead! I would then advise you to keep the following within your stylesheet:
 
 ```css
-/* Turn on the light/dark/auto mode switcher if the theme uses color-scheme */
-#mode-switcher {
-	display: block !important;
-}
-
-/* Keep everything below within alternative CSS for sensible post numbering in postlist, and visually-hidden elements */
+/* Keep everything below within alternative CSS for sensible
+   post numbering in postlist, and visually-hidden elements */
 
 /* https://www.a11yproject.com/posts/how-to-hide-content/ */
 .visually-hidden {
@@ -58,6 +54,14 @@ If you want to start from scratch, go ahead! I would then advise you to keep the
 	content: "" counter(start-from, decimal-leading-zero) ". ";
 	text-align: right;
 	margin-left: -1.5rem;
+}
+```
+Additionally, for the "Sara's Test" CSS, I've added a little light/dark/auto mode switcher. You can enable this for your own theme, by also including the following in your CSS:
+```css
+/* Enable light/dark/auto mode switcher
+   if the theme uses color-scheme */
+#mode-switcher {
+	display: block !important;
 }
 ```
 
