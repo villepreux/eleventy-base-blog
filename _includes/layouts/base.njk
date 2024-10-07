@@ -33,12 +33,31 @@
 		{#- Renders the CSS bundle using a separate file, if you can't set CSP directive style-src: 'unsafe-inline' #}
 		{#- <link rel="stylesheet" href="{% getBundleFileUrl "css" %}"> #}
 
-  	<link rel="prefetch" href="/css/classic/index.css" as="style" />
-  	<link rel="prefetch" href="/css/simple-purple/index.css" as="style" />
+  	<link rel="preload" href="/css/original/index.css" as="style" />
+		
+		<script>
+			const preload = document.querySelector('link[rel="preload"]');
+			const css = sessionStorage.getItem("css");
+			
+			if (css) {
+				preload.setAttribute("href", `/css/${css}/index.css`);
+			} else {
+				preload.remove();
+			}
+		</script>
+
 		<link id="current-style-sheet" rel="stylesheet" href="/css/original/index.css">
 
 		{#- Add the heading-anchors web component to the JavaScript bundle #}
 		{%- js %}{% include "node_modules/@zachleat/heading-anchors/heading-anchors.js" %}{% endjs %}
+
+		<script>
+			const currentStyleSheet = document.querySelector("#current-style-sheet");
+
+			if (css) {
+				currentStyleSheet.setAttribute("href", `/css/${css}/index.css`);
+			}
+		</script>
 	</head>
 	<body>
 		<a href="#skip" class="visually-hidden">Skip to main content</a>
@@ -72,15 +91,12 @@
 		<!-- This page `{{ page.url | htmlBaseUrl }}` was built on {% currentBuildDate %} -->
 		<script type="module" src="{% getBundleFileUrl "js" %}"></script>
 		<script>
-			// const html = document.querySelector('html');
+			const html = document.querySelector('html');
 			const lightSwitch = document.querySelector('#lightSwitch');
 			const darkSwitch = document.querySelector('#darkSwitch');
 			const autoSwitch = document.querySelector('#autoSwitch');
 			const cssSwitch = document.querySelector("#css-switcher");
 			const cssLink = document.querySelector("#css-download-link");
-			const currentStyleSheet = document.querySelector("#current-style-sheet");
-			const html = document.querySelector('html');
-			const css = sessionStorage.getItem("css");
 			const mode = sessionStorage.getItem("mode");
 
 			function switchCSS(cssName) {
