@@ -1,7 +1,6 @@
 #theme-switching {
 	display: flex;
 	flex-wrap: wrap;
-	justify-content: space-between;
 	align-items: center;
 	gap: 0.5em;
 	padding: 0.5em;
@@ -13,4 +12,16 @@
 #theme-switching :is(select, button) {
 	height: 1.75em;
 	max-width: 8em;
+	border-radius: 0.25em;
+	border: 1px CanvasText solid;
+}
+#theme-switching button:is(:hover, [aria-pressed="true"]) {
+	background-color: transparent;
+}
+
+#css-switcher {
+	margin-inline: 0 0.25em;
+}
+#mode-switcher {
+	margin-inline: auto 0;
 }
