@@ -34,14 +34,14 @@
 		{#- <link rel="stylesheet" href="{% getBundleFileUrl "css" %}"> #}
 
   	<link rel="preload" href="/css/original/index.css" as="style" />
+  	<link rel="preload" href="/css/classic/index.css" as="style" />
+  	<link rel="preload" href="/css/simple-purple/index.css" as="style" />
 		
 		<script>
-			const preload = document.querySelector('link[rel="preload"]');
 			const css = sessionStorage.getItem("css");
-			
-			if (css) {
-				preload.setAttribute("href", `/css/${css}/index.css`);
-			} else {
+			const preloads = document.querySelectorAll(`link[rel="preload"]:not([href*=${css}])`);
+
+			for (const preload of preloads) {
 				preload.remove();
 			}
 		</script>
