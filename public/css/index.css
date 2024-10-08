@@ -1,27 +1,16 @@
 #theme-switching {
-	position: absolute;
-	top: 0;
-	right: 0;
-	left: 0;
-	height: 2.5rem;
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: space-between;
 	align-items: center;
 	gap: 0.5em;
-	padding-inline: 0.5em;
-	background-color: #0002;
+	padding: 0.5em;
+	margin-block-end: 0.5em;
+	border-radius: 0.25em;
+	background-color: #0004;
 }
 
-#theme-switching select {
+#theme-switching :is(select, button) {
 	height: 1.75em;
 	max-width: 8em;
-}
-
-body {
-	padding-top: 2.5rem !important;
-}
-
-html {
-	visibility: visible !important;
 }
