@@ -1,0 +1,56 @@
+<script>
+  const html = document.querySelector('html');
+  const lightSwitch = document.querySelector('#lightSwitch');
+  const darkSwitch = document.querySelector('#darkSwitch');
+  const autoSwitch = document.querySelector('#autoSwitch');
+  const cssSwitch = document.querySelector("#css-switcher");
+  const cssLink = document.querySelector("#css-download-link");
+  // const mode = sessionStorage.getItem("mode");
+
+  function switchCSS(cssName) {
+    currentStyleSheet.setAttribute("href", `/css/${cssName}/index.css`);
+    cssLink.setAttribute("href", `/css/${cssName}/index.css`);
+    sessionStorage.setItem("css", cssName);
+  }
+
+  cssSwitch.addEventListener("change", (event) => {
+    switchCSS(event.target.value);
+  })
+
+  function switchDark() {
+    html.style.colorScheme = "dark";
+    sessionStorage.setItem("mode", "dark");
+    lightSwitch.setAttribute("aria-pressed","false");
+    darkSwitch.setAttribute("aria-pressed","true");
+    autoSwitch.setAttribute("aria-pressed","false");
+  }
+  function switchLight() {
+    html.style.colorScheme = "light";
+    sessionStorage.setItem("mode", "light");
+    lightSwitch.setAttribute("aria-pressed","true");
+    darkSwitch.setAttribute("aria-pressed","false");
+    autoSwitch.setAttribute("aria-pressed","false");
+  }
+  function switchAuto() {
+    html.style.colorScheme = "light dark";
+    sessionStorage.removeItem("mode");
+    lightSwitch.setAttribute("aria-pressed","false");
+    darkSwitch.setAttribute("aria-pressed","false");
+    autoSwitch.setAttribute("aria-pressed","true");
+  }
+
+  //check for session preferences
+  if (mode) {
+    if (mode === "dark") {
+      switchDark();
+    }
+    else if (mode === "light") {
+      switchLight();
+    }
+  }
+  if (css) {
+    // cssLink.setAttribute("href", `/css/${css}/index.css`);
+    switchCSS(css);
+    cssSwitch.value = css;
+  }
+</script>
