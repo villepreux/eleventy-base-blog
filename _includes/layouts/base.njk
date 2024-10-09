@@ -39,12 +39,13 @@
   	<link rel="preload" href="/css/villapirorum/index.css" as="style" />
 		
 		<script>
-			const css = sessionStorage.getItem("css");
-			const preloads = document.querySelectorAll(`link[rel="preload"]:not([href*=${css}])`);
+		let params = new URLSearchParams(document.location.search);
+		const css = params.get("theme") ?? sessionStorage.getItem("css");
+		const preloads = document.querySelectorAll(`link[rel="preload"]:not([href*=${css}])`);
 
-			for (const preload of preloads) {
-				preload.remove();
-			}
+		for (const preload of preloads) {
+			preload.remove();
+		}
 		</script>
 
 		<link id="current-style-sheet" rel="stylesheet" href="/css/original/index.css">
