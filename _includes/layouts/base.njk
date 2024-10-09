@@ -41,6 +41,7 @@
 		<script>
 		let params = new URLSearchParams(document.location.search);
 		const css = params.get("theme") ?? sessionStorage.getItem("css");
+		const mode = params.get("mode") ?? sessionStorage.getItem("mode");
 		const preloads = document.querySelectorAll(`link[rel="preload"]:not([href*=${css}])`);
 
 		for (const preload of preloads) {
@@ -99,7 +100,7 @@
 			const autoSwitch = document.querySelector('#autoSwitch');
 			const cssSwitch = document.querySelector("#css-switcher");
 			const cssLink = document.querySelector("#css-download-link");
-			const mode = sessionStorage.getItem("mode");
+			// const mode = sessionStorage.getItem("mode");
 
 			function switchCSS(cssName) {
 				currentStyleSheet.setAttribute("href", `/css/${cssName}/index.css`);
