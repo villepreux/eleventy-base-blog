@@ -20,784 +20,811 @@ VillaPirorum - 11ty-Themes-joy - base blog theme
 
 @layer base {
 
-  /* Light & Dark color-schemes support */
+    /* Light & Dark color-schemes support */
 
-  :root {
+    :root {
 
-      color-scheme: light dark;
-  }
+        color-scheme: light dark;
+    }
 
-  /* Unitless viewport-width custom property */
+    /* Unitless viewport-width custom property */
 
-  @property --100vw {
+    @property --100vw {
 
-      syntax: "<length>";
-      initial-value: 0px;
-      inherits: false;
-  }
+        syntax: "<length>";
+        initial-value: 0px;
+        inherits: false;
+    }
 
-  :root {
+    :root {
 
-      --100vw: 100vw;
-      --unitless-viewport-width: tan(atan2(var(--100vw), 1px));
-  }
+        --100vw: 100vw;
+        --unitless-viewport-width: tan(atan2(var(--100vw), 1px));
+    }
 
-  /* Normalize */
+    /* Normalize */
 
-  *,
-  ::before,
-  ::after {
+    *,
+    ::before,
+    ::after {
 
-      box-sizing: border-box;
-  }
+        box-sizing: border-box;
+    }
 
-  body {
+    body {
 
-      margin:     0;
-      min-height: 100svh;
-  }
+        margin:     0;
+        min-height: 100svh;
+    }
 
-  [hidden] {
+    [hidden] {
 
-      display: none !important;
-  }
+        display: none !important;
+    }
 
-  /* View transitions support */
+    /* View transitions support */
 
-  @view-transition {
+    @media (prefers-reduced-motion: no-preference) {
 
-      navigation: auto;
-  }
+        @view-transition {
 
-  * {
-      view-transition-name: var(--view-transition-name);
-  }
+            navigation: auto;
+        }
 
-  /* Allow transitions to auto */
+        * {
+            view-transition-name: var(--view-transition-name);
+        }
+    }
 
-  html {
+    /* Allow transitions to auto */
 
-      interpolate-size: allow-keywords;
-  }
+    html {
 
-  /* Typography */
+        interpolate-size: allow-keywords;
+    }
 
-  :root {
+    /* Typography */
 
-      --root-font-size: clamp(1.00rem, 0.59rem + 1.47vw, 1.25rem);
-  }
+    :root {
 
-  html {
+        --root-font-size: clamp(1.00rem, 0.59rem + 1.47vw, 1.25rem);
+    }
 
-      font-size:                  var(--root-font-size);
-      hanging-punctuation:        first allow-end last;
-      -webkit-font-smoothing:     antialiased;
-      -moz-osx-font-smoothing:    grayscale;
-      line-height:                1.5;
-      font-family:                system-ui;
-      text-underline-offset:      0.24em;
-  }
+    html {
 
-  a {
-      font-weight: 600; /* Very opinionated. Color + Weight ensures a11y against background AND surrounding text */
-  }
+        font-size:                  var(--root-font-size);
+        hanging-punctuation:        first allow-end last;
+        -webkit-font-smoothing:     antialiased;
+        -moz-osx-font-smoothing:    grayscale;
+        line-height:                1.5;
+        font-family:                system-ui;
+        text-underline-offset:      0.24em;
+    }
 
-  pre {
+    a {
+        font-weight: 600; /* Very opinionated. Color + Weight ensures a11y against background AND surrounding text */
+    }
 
-      white-space: pre-wrap;
-  }
+    pre {
 
-  input, select, textarea, button {
+        white-space: pre-wrap;
+    }
 
-      font-size: inherit;
-  }
+    input, select, textarea, button {
 
-  h1, h2, h3, h4, h5, h6 {
+        font-size: inherit;
+    }
 
-      text-wrap: balance;
-  }
+    h1, h2, h3, h4, h5, h6 {
 
-  h1 { font-size: 2.00rem; }
-  h2 { font-size: 1.50rem; }
-  h3 { font-size: 1.17rem; }
-  h4 { font-size: 1.00rem; }
-  h5 { font-size: 0.83rem; }
-  h6 { font-size: 0.67rem; }
-
-  h1 { margin: 0.67em 0; }
-
-  /* Typography - Fluid font size */
-
-  :root {
-
-      --fluid-font-size-min-viewport-width:  320; --fluid-font-size-min: 1.0rem;
-      --fluid-font-size-max-viewport-width: 1600; --fluid-font-size-max: 1.5rem;
-
-      --fluid-font-size-viewport-ratio: clamp(0, calc((var(--unitless-viewport-width) - var(--fluid-font-size-min-viewport-width)) / (var(--fluid-font-size-max-viewport-width) - var(--fluid-font-size-min-viewport-width))), 1);
-      --fluid-font-size-eased-viewport-ratio: sin(var(--fluid-font-size-viewport-ratio) * 3.14159 / 2);
-      --fluid-font-size: clamp(var(--fluid-font-size-min), var(--fluid-font-size-min) + ( var(--fluid-font-size-eased-viewport-ratio) * (var(--fluid-font-size-max) - var(--fluid-font-size-min)) ), var(--fluid-font-size-max));
-
-      --root-font-size: var(--fluid-font-size);
-  }
-
-  /* Layout */
-
-  /* Layout - inline small images */
-
-          img[width="16"],     img[width="24"],     img[width="32"],     img[width="48"],
-          svg[width="16"],     svg[width="24"],     svg[width="32"],     svg[width="48"],
-      picture[width="16"], picture[width="24"], picture[width="32"], picture[width="48"] {
-
-      display: inline
-  }
-
-  /* System color with site-level color-scheme preference support */
-
-  /* (Colors choise initialy based on Miriam Eric Suzanne https://www.miriamsuzanne.com/assets/css/layer/default.css) */
-
-  /* First, look at browser preferences */
-
-  html {
-
-      --Canvas:           var(--bg,               #1c1c1c);
-      --CanvasText:       var(--text,             #f8f9fa);
-      --Link:             var(--action,           #8cabff);
-      --VisitedText:      var(--action,           #ffadff);
-      --ActiveText:       var(--active,           #ff6666);
-      --ButtonFace:       var(--btn-bg,           #2b2a33);
-      --ButtonFaceHover:  var(--btn-hover-bg,     #52525e);
-      --ButtonText:       var(--btn-text,         #fbfbfe);
-      --ButtonTextHover:  var(--btn-hover-text,    var(--ButtonText));
-      --ButtonBorder:     var(--btn-border,        var(--border, currentColor));
-      --Field:            var(--field-bg,         #2b2a33);
-      --FieldText:        var(--field-text,       #fbfbfe);
-      --Highlight:        var(--highlight,        #3f638b);
-      --HighlightText:    var(--highlight-text,    var(--CanvasText));
-      --SelectedItem:     var(--selected,         skyblue);
-      --SelectedItemText: var(--selected-text,    black);
-      --AccentColor:      var(--accent,           #ff5ce4);
-      --AccentColorText:  var(--accent-text,      black);
-  }
-
-  @media (prefers-color-scheme: light) {
-
-      html {
-
-          --Canvas:           var(--bg,               #f8f9fa);
-          --CanvasText:       var(--text,             #1c1c1c);
-          --Link:             var(--action,           #00e);
-          --VisitedText:      var(--action,           #551a8b);
-          --ActiveText:       var(--active,           #e00);
-          --ButtonFace:       var(--btn-bg,           #e9e9ed);
-          --ButtonFaceHover:  var(--btn-bg,           #ffffff);
-          --ButtonText:       var(--btn-text,         #1c1c1c);
-          --ButtonTextHover:  var(--btn-hover-text,    var(--ButtonText));
-          --ButtonBorder:     var(--btn-border,        var(--border, currentColor));
-          --Field:            var(--field-bg,         #f8f9fa);
-          --FieldText:        var(--field-text,       #1c1c1c);
-          --Highlight:        var(--highlight,        #b3d8ff);
-          --HighlightText:    var(--highlight-text,    var(--CanvasText));
-          --SelectedItem:     var(--selected,         #0063e1);
-          --SelectedItemText: var(--selected-text,    white);
-          --AccentColor:      var(--accent,           #7d004f);
-          --AccentColorText:  var(--accent-text,      white);
-      }
-  }
-
-  /* Then look at what is allowed at this site CSS level */
-  /* (this is what is currently used by 11tytheme.sjoy.lol) */
-
-  html {
-
-      --Canvas:           light-dark(var(--bg,               #f8f9fa),                    var(--bg,               #1c1c1c)                    );
-      --CanvasText:       light-dark(var(--text,             #1c1c1c),                    var(--text,             #f8f9fa)                    );
-      --Link:             light-dark(var(--action,           #00e),                       var(--action,           #8cabff)                    );
-      --VisitedText:      light-dark(var(--action,           #551a8b),                    var(--action,           #ffadff)                    );
-      --ActiveText:       light-dark(var(--active,           #e00),                       var(--active,           #ff6666)                    );
-      --ButtonFace:       light-dark(var(--btn-bg,           #e9e9ed),                    var(--btn-bg,           #2b2a33)                    );
-      --ButtonFaceHover:  light-dark(var(--btn-bg,           #ffffff),                    var(--btn-hover-bg,     #52525e)                    );
-      --ButtonText:       light-dark(var(--btn-text,         #1c1c1c),                    var(--btn-text,         #fbfbfe)                    );
-      --ButtonTextHover:  light-dark(var(--btn-hover-text,    var(--ButtonText)),           var(--btn-hover-text,    var(--ButtonText))           );
-      --ButtonBorder:     light-dark(var(--btn-border,        var(--border, currentColor)), var(--btn-border,        var(--border, currentColor)) );
-      --Field:            light-dark(var(--field-bg,         #f8f9fa),                    var(--field-bg,         #2b2a33)                    );
-      --FieldText:        light-dark(var(--field-text,       #1c1c1c),                    var(--field-text,       #fbfbfe)                    );
-      --Highlight:        light-dark(var(--highlight,        #b3d8ff),                    var(--highlight,        #3f638b)                    );
-      --HighlightText:    light-dark(var(--highlight-text,    var(--CanvasText)),           var(--highlight-text,    var(--CanvasText))           );
-      --SelectedItem:     light-dark(var(--selected,         #0063e1),                    var(--selected,         skyblue)                    );
-      --SelectedItemText: light-dark(var(--selected-text,    white),                      var(--selected-text,    black)                      );
-      --AccentColor:      light-dark(var(--accent,           #7d004f),                    var(--accent,           #ff5ce4)                    );
-      --AccentColorText:  light-dark(var(--accent-text,      white),                      var(--accent-text,      black)                      );
-  }
-
-  /* And finaly if color-scheme is explicitly specified at the site HTML level, then it takes precedence */
-
-  html[color-scheme=dark],
-  html[data-theme=dark] {
-
-      --Canvas:           var(--bg,               #1c1c1c);
-      --CanvasText:       var(--text,             #f8f9fa);
-      --Link:             var(--action,           #8cabff);
-      --VisitedText:      var(--action,           #ffadff);
-      --ActiveText:       var(--active,           #f66);
-      --ButtonFace:       var(--btn-bg,           #2b2a33);
-      --ButtonFaceHover:  var(--btn-hover-bg,     #52525e);
-      --ButtonText:       var(--btn-text,         #fbfbfe);
-      --ButtonTextHover:  var(--btn-hover-text,    var(--ButtonText));
-      --ButtonBorder:     var(--btn-border,        var(--border, currentColor));
-      --Field:            var(--field-bg,         #2b2a33);
-      --FieldText:        var(--field-text,       #fbfbfe);
-      --Highlight:        var(--highlight,        #3f638b);
-      --HighlightText:    var(--highlight-text,    var(--CanvasText));
-      --SelectedItem:     var(--selected,         skyblue);
-      --SelectedItemText: var(--selected-text,    black);
-      --AccentColor:      var(--accent,           #ff5ce4);
-      --AccentColorText:  var(--accent-text,      black);
-  }
-
-  html[color-scheme=light],
-  html[data-theme=light] {
-
-      --Canvas:           var(--bg,               #f8f9fa);
-      --CanvasText:       var(--text,             #1c1c1c);
-      --Link:             var(--action,           #00e);
-      --VisitedText:      var(--action,           #551a8b);
-      --ActiveText:       var(--active,           #e00);
-      --ButtonFace:       var(--btn-bg,           #e9e9ed);
-      --ButtonFaceHover:  var(--btn-bg,           #ffffff);
-      --ButtonText:       var(--btn-text,         #1c1c1c);
-      --ButtonTextHover:  var(--btn-hover-text,    var(--ButtonText));
-      --ButtonBorder:     var(--btn-border,        var(--border, currentColor));
-      --Field:            var(--field-bg,         #f8f9fa);
-      --FieldText:        var(--field-text,       #1c1c1c);
-      --Highlight:        var(--highlight,        #b3d8ff);
-      --HighlightText:    var(--highlight-text,    var(--CanvasText));
-      --SelectedItem:     var(--selected,         #0063e1);
-      --SelectedItemText: var(--selected-text,    white);
-      --AccentColor:      var(--accent,           #7d004f);
-      --AccentColorText:  var(--accent-text,      white);
-  }
-
-  /* Colors - Semantics */
-
-  /* On sytem color basis, define our semantic colors */
-
-  :root {
-
-      --theme-color:              var(--VisitedText);
-      --accent-color:             var(--Link);
-
-      --background-color:         var(--Canvas);
-      --text-color:               var(--CanvasText);
-
-      --link-color:               var(--Link);
-      --link-color-visited:       var(--VisitedText);
-      --link-color-hover:         var(--ActiveText);
-
-      --field-background-color:   var(--Field);
-      --field-text-color:         var(--FieldText);
-
-      --hard-border-color:        var(--FieldText, currentColor);
-      --soft-border-color:        color-mix(in srgb, var(--hard-border-color) 33%, transparent);
-  }
-
-  html {
-
-      background-color:   var(--background-color);
-      color:              var(--text-color);
-  }
-
-  a           { color: var(--link-color);         }
-  a:visited   { color: var(--link-color-visited); }
-  a:hover     { color: var(--link-color-hover);   }
-
-  /* Layout - Navigation lists */
-
-  nav ul {
-
-      list-style: none;
-      padding-inline-start: 0;
-
-      display:            flex;
-      flex-wrap:          wrap;
-      gap:                1em;
-      justify-content:  flex-end;
-  }
-
-  nav li:before {
-
-      content: "\200B";
-      position: absolute;
-  }
-
-  /* Animations */
-
-  main :is(
-
-      p, ul, ol,
-      picture, img:not(picture img),
-      pre
-
-      ) {
-
-      animation:          appear linear;
-      animation-timeline: view();
-      animation-range:    entry 0% entry 80%;
-  }
-
-      @keyframes appear {
-
-            0% { opacity:   0%; transform: scale(1, 0.5); }
-          100% { opacity: 100%; transform: scale(1, 1.0); }
-      }
-
-  /* Utility classes */
-
-  .visually-hidden:not(:focus):not(:active) {
-
-      clip:           rect(0 0 0 0);
-      clip-path:      inset(50%);
-      height:         1px;
-      overflow:       hidden;
-      position:       absolute;
-      white-space:    nowrap;
-      width:          1px;
-      margin:         0;
-      padding:        0;
-  }
+        text-wrap: balance;
+    }
+
+    h1 { font-size: 2.00rem; }
+    h2 { font-size: 1.50rem; }
+    h3 { font-size: 1.17rem; }
+    h4 { font-size: 1.00rem; }
+    h5 { font-size: 0.83rem; }
+    h6 { font-size: 0.67rem; }
+
+    h1 { margin: 0.67em 0; }
+
+    /* Typography - Fluid font size */
+
+    :root {
+
+        --fluid-font-size-min-viewport-width:  320; --fluid-font-size-min: 1.0rem;
+        --fluid-font-size-max-viewport-width: 1600; --fluid-font-size-max: 1.5rem;
+
+        --fluid-font-size-viewport-ratio: clamp(0, calc((var(--unitless-viewport-width) - var(--fluid-font-size-min-viewport-width)) / (var(--fluid-font-size-max-viewport-width) - var(--fluid-font-size-min-viewport-width))), 1);
+        --fluid-font-size-eased-viewport-ratio: sin(var(--fluid-font-size-viewport-ratio) * 3.14159 / 2);
+        --fluid-font-size: clamp(var(--fluid-font-size-min), var(--fluid-font-size-min) + ( var(--fluid-font-size-eased-viewport-ratio) * (var(--fluid-font-size-max) - var(--fluid-font-size-min)) ), var(--fluid-font-size-max));
+
+        --root-font-size: var(--fluid-font-size);
+    }
+
+    /* Layout */
+
+    /* Layout - inline small images */
+
+            img[width="16"],     img[width="24"],     img[width="32"],     img[width="48"],
+            svg[width="16"],     svg[width="24"],     svg[width="32"],     svg[width="48"],
+        picture[width="16"], picture[width="24"], picture[width="32"], picture[width="48"] {
+
+        display: inline
+    }
+
+    /* System color with site-level color-scheme preference support */
+
+    /* (Colors choise initialy based on Miriam Eric Suzanne https://www.miriamsuzanne.com/assets/css/layer/default.css) */
+
+    /* First, look at browser preferences */
+
+    html {
+
+        --Canvas:           var(--bg,               #1c1c1c);
+        --CanvasText:       var(--text,             #f8f9fa);
+        --Link:             var(--action,           #8cabff);
+        --VisitedText:      var(--action,           #ffadff);
+        --ActiveText:       var(--active,           #ff6666);
+        --ButtonFace:       var(--btn-bg,           #2b2a33);
+        --ButtonFaceHover:  var(--btn-hover-bg,     #52525e);
+        --ButtonText:       var(--btn-text,         #fbfbfe);
+        --ButtonTextHover:  var(--btn-hover-text,    var(--ButtonText));
+        --ButtonBorder:     var(--btn-border,        var(--border, currentColor));
+        --Field:            var(--field-bg,         #2b2a33);
+        --FieldText:        var(--field-text,       #fbfbfe);
+        --Highlight:        var(--highlight,        #3f638b);
+        --HighlightText:    var(--highlight-text,    var(--CanvasText));
+        --SelectedItem:     var(--selected,         skyblue);
+        --SelectedItemText: var(--selected-text,    black);
+        --AccentColor:      var(--accent,           #ff5ce4);
+        --AccentColorText:  var(--accent-text,      black);
+    }
+
+    @media (prefers-color-scheme: light) {
+
+        html {
+
+            --Canvas:           var(--bg,               #f8f9fa);
+            --CanvasText:       var(--text,             #1c1c1c);
+            --Link:             var(--action,           #00e);
+            --VisitedText:      var(--action,           #551a8b);
+            --ActiveText:       var(--active,           #e00);
+            --ButtonFace:       var(--btn-bg,           #e9e9ed);
+            --ButtonFaceHover:  var(--btn-bg,           #ffffff);
+            --ButtonText:       var(--btn-text,         #1c1c1c);
+            --ButtonTextHover:  var(--btn-hover-text,    var(--ButtonText));
+            --ButtonBorder:     var(--btn-border,        var(--border, currentColor));
+            --Field:            var(--field-bg,         #f8f9fa);
+            --FieldText:        var(--field-text,       #1c1c1c);
+            --Highlight:        var(--highlight,        #b3d8ff);
+            --HighlightText:    var(--highlight-text,    var(--CanvasText));
+            --SelectedItem:     var(--selected,         #0063e1);
+            --SelectedItemText: var(--selected-text,    white);
+            --AccentColor:      var(--accent,           #7d004f);
+            --AccentColorText:  var(--accent-text,      white);
+        }
+    }
+
+    /* Then look at what is allowed at this site CSS level */
+    /* (this is what is currently used by 11tytheme.sjoy.lol) */
+
+    html {
+
+        --Canvas:           light-dark(var(--bg,               #f8f9fa),                    var(--bg,               #1c1c1c)                    );
+        --CanvasText:       light-dark(var(--text,             #1c1c1c),                    var(--text,             #f8f9fa)                    );
+        --Link:             light-dark(var(--action,           #00e),                       var(--action,           #8cabff)                    );
+        --VisitedText:      light-dark(var(--action,           #551a8b),                    var(--action,           #ffadff)                    );
+        --ActiveText:       light-dark(var(--active,           #e00),                       var(--active,           #ff6666)                    );
+        --ButtonFace:       light-dark(var(--btn-bg,           #e9e9ed),                    var(--btn-bg,           #2b2a33)                    );
+        --ButtonFaceHover:  light-dark(var(--btn-bg,           #ffffff),                    var(--btn-hover-bg,     #52525e)                    );
+        --ButtonText:       light-dark(var(--btn-text,         #1c1c1c),                    var(--btn-text,         #fbfbfe)                    );
+        --ButtonTextHover:  light-dark(var(--btn-hover-text,    var(--ButtonText)),           var(--btn-hover-text,    var(--ButtonText))           );
+        --ButtonBorder:     light-dark(var(--btn-border,        var(--border, currentColor)), var(--btn-border,        var(--border, currentColor)) );
+        --Field:            light-dark(var(--field-bg,         #f8f9fa),                    var(--field-bg,         #2b2a33)                    );
+        --FieldText:        light-dark(var(--field-text,       #1c1c1c),                    var(--field-text,       #fbfbfe)                    );
+        --Highlight:        light-dark(var(--highlight,        #b3d8ff),                    var(--highlight,        #3f638b)                    );
+        --HighlightText:    light-dark(var(--highlight-text,    var(--CanvasText)),           var(--highlight-text,    var(--CanvasText))           );
+        --SelectedItem:     light-dark(var(--selected,         #0063e1),                    var(--selected,         skyblue)                    );
+        --SelectedItemText: light-dark(var(--selected-text,    white),                      var(--selected-text,    black)                      );
+        --AccentColor:      light-dark(var(--accent,           #7d004f),                    var(--accent,           #ff5ce4)                    );
+        --AccentColorText:  light-dark(var(--accent-text,      white),                      var(--accent-text,      black)                      );
+    }
+
+    /* And finaly if color-scheme is explicitly specified at the site HTML level, then it takes precedence */
+
+    html[color-scheme=dark],
+    html[data-theme=dark] {
+
+        --Canvas:           var(--bg,               #1c1c1c);
+        --CanvasText:       var(--text,             #f8f9fa);
+        --Link:             var(--action,           #8cabff);
+        --VisitedText:      var(--action,           #ffadff);
+        --ActiveText:       var(--active,           #f66);
+        --ButtonFace:       var(--btn-bg,           #2b2a33);
+        --ButtonFaceHover:  var(--btn-hover-bg,     #52525e);
+        --ButtonText:       var(--btn-text,         #fbfbfe);
+        --ButtonTextHover:  var(--btn-hover-text,    var(--ButtonText));
+        --ButtonBorder:     var(--btn-border,        var(--border, currentColor));
+        --Field:            var(--field-bg,         #2b2a33);
+        --FieldText:        var(--field-text,       #fbfbfe);
+        --Highlight:        var(--highlight,        #3f638b);
+        --HighlightText:    var(--highlight-text,    var(--CanvasText));
+        --SelectedItem:     var(--selected,         skyblue);
+        --SelectedItemText: var(--selected-text,    black);
+        --AccentColor:      var(--accent,           #ff5ce4);
+        --AccentColorText:  var(--accent-text,      black);
+    }
+
+    html[color-scheme=light],
+    html[data-theme=light] {
+
+        --Canvas:           var(--bg,               #f8f9fa);
+        --CanvasText:       var(--text,             #1c1c1c);
+        --Link:             var(--action,           #00e);
+        --VisitedText:      var(--action,           #551a8b);
+        --ActiveText:       var(--active,           #e00);
+        --ButtonFace:       var(--btn-bg,           #e9e9ed);
+        --ButtonFaceHover:  var(--btn-bg,           #ffffff);
+        --ButtonText:       var(--btn-text,         #1c1c1c);
+        --ButtonTextHover:  var(--btn-hover-text,    var(--ButtonText));
+        --ButtonBorder:     var(--btn-border,        var(--border, currentColor));
+        --Field:            var(--field-bg,         #f8f9fa);
+        --FieldText:        var(--field-text,       #1c1c1c);
+        --Highlight:        var(--highlight,        #b3d8ff);
+        --HighlightText:    var(--highlight-text,    var(--CanvasText));
+        --SelectedItem:     var(--selected,         #0063e1);
+        --SelectedItemText: var(--selected-text,    white);
+        --AccentColor:      var(--accent,           #7d004f);
+        --AccentColorText:  var(--accent-text,      white);
+    }
+
+    /* Colors - Semantics */
+
+    /* On sytem color basis, define our semantic colors */
+
+    :root {
+
+        --theme-color:              var(--VisitedText);
+        --accent-color:             var(--Link);
+
+        --background-color:         var(--Canvas);
+        --text-color:               var(--CanvasText);
+
+        --link-color:               var(--Link);
+        --link-color-visited:       var(--VisitedText);
+        --link-color-hover:         var(--ActiveText);
+
+        --field-background-color:   var(--Field);
+        --field-text-color:         var(--FieldText);
+
+        --hard-border-color:        var(--FieldText, currentColor);
+        --soft-border-color:        color-mix(in srgb, var(--hard-border-color) 33%, transparent);
+    }
+
+    html {
+
+        background-color:   var(--background-color);
+        color:              var(--text-color);
+    }
+
+    a           { color: var(--link-color);         }
+    a:visited   { color: var(--link-color-visited); }
+    a:hover     { color: var(--link-color-hover);   }
+
+    @media (prefers-reduced-motion: no-preference) {
+
+        a { transition: .5s }
+    }
+
+    /* Layout - Navigation lists */
+
+    nav ul {
+
+        list-style: none;
+        padding-inline-start: 0;
+
+        display:            flex;
+        flex-wrap:          wrap;
+        gap:                1em;
+        justify-content:    flex-end;
+    }
+
+    nav li:before {
+
+        content: "\200B";
+        position: absolute;
+    }
+
+    /* Animations */
+
+    @media (prefers-reduced-motion: no-preference) {
+
+        main :is(
+
+            p, ul, ol,
+            picture, img:not(picture img),
+            pre
+
+            ) {
+
+            animation:          appear linear;
+            animation-timeline: view();
+            animation-range:    entry 0% entry 80%;
+        }
+
+        @keyframes appear {
+
+              0% { opacity:   0%; transform: scale(1, 0.5); }
+            100% { opacity: 100%; transform: scale(1, 1.0); }
+        }
+    }
+
+    /* Utility classes */
+
+    .visually-hidden:not(:focus):not(:active) {
+
+        clip:           rect(0 0 0 0);
+        clip-path:      inset(50%);
+        height:         1px;
+        overflow:       hidden;
+        position:       absolute;
+        white-space:    nowrap;
+        width:          1px;
+        margin:         0;
+        padding:        0;
+    }
 
 } /* @layer base */
 
 @layer base-blog {
 
-  /* Base blog classes */
+    /* Base blog classes */
 
-  a.home-link {
+    a.home-link {
 
-      text-decoration:    none;
-      font-weight:        bold;
-      text-wrap:          balance;
-      font-size:          2em;
+        text-decoration:    none;
+        font-weight:        bold;
+        text-wrap:          balance;
+    }
 
-      animation:          home-link ease both;
-      animation-timeline: scroll();
-      animation-range:    0% 50vh;
-  }
+    @media (prefers-reduced-motion: no-preference) {
 
-  @keyframes home-link {
+        a.home-link {
 
-        0% { font-size: 2em; }
-      100% { font-size: 1em; }
-  }
+            font-size:          2em;
+            animation:          home-link ease both;
+            animation-timeline: scroll();
+            animation-range:    0% 50vh;
+        }
 
-  /* Posts list */
+        @keyframes home-link {
 
-  .postlist {
+              0% { font-size: 2em; }
+            100% { font-size: 1em; }
+        }
+    }
 
-      list-style:         none;
-      padding:            0;
-      list-style-type:    "";
-  }
+    /* Posts list */
 
-  .postlist-item {
+    .postlist {
 
-      display:            flex;
-      align-items:        baseline;
-      counter-increment:  start-from -1;
-      margin-bottom:      1em;
-      flex-direction:     row;
-      flex-wrap:          nowrap;
-      justify-content:    space-between;
-  }
+        list-style:         none;
+        padding:            0;
+        list-style-type:    "";
+    }
 
-  @media (max-width: 520px) {
+    .postlist-item {
 
-      .postlist-item {
+        display:            flex;
+        align-items:        baseline;
+        counter-increment:  start-from -1;
+        margin-bottom:      1em;
+        flex-direction:     row;
+        flex-wrap:          nowrap;
+        justify-content:    space-between;
+    }
 
-          flex-direction: row;
-          flex-wrap: wrap;
-          width: 100%;
-          justify-content: flex-start;
-      }
+    @media (max-width: 520px) {
 
-      .postlist-link {
+        .postlist-item {
 
-          flex-grow: 1;
-          width: 100%;
-      }
-  }
+            flex-direction:     row;
+            flex-wrap:          wrap;
+            width:              100%;
+            justify-content:    flex-start;
+        }
 
-  .postlist-item:before {
+        .postlist-link {
 
-      display:        inline-block;
-      pointer-events: none;
-      content:        "" counter(start-from, decimal-leading-zero) ". ";
-      line-height:    100%;
-      text-align:     right;
-      margin-inline:  .5em;
-      order:          -1;
-  }
+            flex-grow:  1;
+            width:      100%;
+        }
+    }
 
-  .postlist-date {
+    .postlist-item:before {
 
-      word-spacing:   -0.5px;
-      order:          -1;
-      min-width:      12em;
-  }
+        display:        inline-block;
+        pointer-events: none;
+        content:        "" counter(start-from, decimal-leading-zero) ". ";
+        line-height:    100%;
+        text-align:     right;
+        margin-inline:  .5em;
+        order:          -1;
+    }
 
-  .postlist-link {
+    .postlist-date {
 
-      flex-grow: 1;
-  }
+        word-spacing:   -0.5px;
+        order:          -1;
+        min-width:      12em;
+    }
 
-  .postlist-item-active .postlist-link {
+    .postlist-link {
 
-      font-weight: bold;
-  }
+        flex-grow: 1;
+    }
 
-  /* Code blocks */
+    .postlist-item-active .postlist-link {
 
-  pre:not([class*="language-"]):has(code) {
+        font-weight: bold;
+    }
 
-      background-color:   var(--field-background-color);
-      color:              var(--field-text-color);
-      margin:             .5em 0;
-      line-height:        1.375;
-      tab-size:           4;
-      hyphens:            none;
-      direction:          ltr;
-      text-align:         left;
-      white-space:        pre;
-      word-spacing:       normal;
-      word-break:         normal;
-      overflow-x:         auto;
-      border:             1px solid var(--soft-border-color);
-      border-radius:      .25em;
-      padding:            1em;
-  }
+    /* Code blocks */
 
-  code {
+    pre:not([class*="language-"]):has(code) {
 
-      word-break: break-word;
-  }
+        background-color:   var(--field-background-color);
+        color:              var(--field-text-color);
+        margin:             .5em 0;
+        line-height:        1.375;
+        tab-size:           4;
+        hyphens:            none;
+        direction:          ltr;
+        text-align:         left;
+        white-space:        pre;
+        word-spacing:       normal;
+        word-break:         normal;
+        overflow-x:         auto;
+        border:             1px solid var(--soft-border-color);
+        border-radius:      .25em;
+        padding:            1em;
+    }
+
+    code {
+
+        word-break: break-word;
+    }
 
 } /* @layer base-blog */
 
 @layer eleventy-themes-joy {
 
-  /* https://11tytheme.sjoy.lol/ specific */
+    /* https://11tytheme.sjoy.lol/ specific */
 
-  /* Enable light/dark/auto mode switcher if the theme uses color-scheme */
+    /* Enable light/dark/auto mode switcher if the theme uses color-scheme */
 
-  #mode-switcher {
+    #mode-switcher {
 
-      display: block !important;
-  }
+        display: block !important;
+    }
 
 } /* @layer eleventy-themes-joy */
 
 @layer villapirorum {
 
-  /* Villapirorum semantic / classless styles */
+    /* Villapirorum semantic / classless styles */
 
-  html {
+    html {
 
-      overflow: auto;
-      scrollbar-gutter: stable; /* KNOWN ISSUE: scrollbar-gutter does not work well with fixed header */
-  }
+        overflow: auto;
+        scrollbar-gutter: stable; /* KNOWN ISSUE: scrollbar-gutter does not work well with fixed header */
+    }
 
-  body {
+    body {
 
-      display: flex;
-      flex-direction: column;
-  }
+        display: flex;
+        flex-direction: column;
+    }
 
-  main {
+    main {
 
-      flex-grow: 1;
-  }
+        flex-grow: 1;
+    }
 
-  /* Full width horizontal header */
+    /* Full width horizontal header */
 
-  body > header {
+    body > header {
 
-      display:            flex;
-      justify-content:    space-between;
-      align-items:        center;
-      padding:            1em;
-      flex-wrap:          wrap;
-      gap:                1em;
-  }
+        display:            flex;
+        justify-content:    space-between;
+        align-items:        center;
+        padding:            1em;
+        flex-wrap:          wrap;
+        gap:                1em;
+    }
 
-  body > header > :last-child {
+    body > header > :last-child {
 
-      flex-grow: 1;
-  }
+        flex-grow: 1;
+    }
 
-  body > header ul {
+    body > header ul {
 
-      margin: 0;
-  }
+        margin: 0;
+    }
 
-  /* Full width main area... */
+    /* Full width main area... */
 
-  main {
+    main {
 
-      padding-inline: 0;
-  }
+        padding-inline: 0;
+    }
 
-  /* ... With width-constrained content */
+    /* ... With width-constrained content */
 
-  body  {
+    body  {
 
-      --min-width: 1rem;
-      --max-width: 960px;
+        /* Minimal margin & maximum content width */
 
-  }
+        --margin-inline-min: 1rem;
+        --content-max-width: 960px;
 
-  /*:is(main, main > heading-anchors, body > footer) >*/
-  :is(main, footer) :where(
+        /* Repartition of the margin between start and end */
 
-      .post-metadata,
-      h1, h2, h3, h4, h5, h6,
-      p,
-      ul/*:not(nav ul)*/,
-      ol:not(nav ol),
-      header, footer, main,article, section, blockquote,
-      table,
-      small,
-      pre
+        --margin-inline-start-ratio: .5;
+        --margin-inline-end-ratio:   calc(1.0 - var(--margin-inline-start-ratio));
 
-  ):not(:is(.visually-hidden, [hidden])) {
+        /* Compute inline margins from above parameters */
 
-      /*margin-inline: max(var(--min-width), calc(0.5 * calc(100vw - var(--max-width))));*/
+        --margin-inline-start:	clamp(var(--margin-inline-min), calc(var(--margin-inline-start-ratio) * calc(100% - var(--content-max-width))), calc(var(--margin-inline-start-ratio) * 100%));
+        --margin-inline-end:    clamp(var(--margin-inline-min), calc(var(--margin-inline-end-ratio)   * calc(100% - var(--content-max-width))), calc(var(--margin-inline-end-ratio)   * 100%));
+    }
 
-      --left-text-margin-ratio: .5;
-      --right-text-margin-ratio: calc(1.0 - var(--left-text-margin-ratio));
+    /*:is(main, main > heading-anchors, body > footer) >*/
+    :is(main, footer) :where(
 
-      margin-inline:  clamp(var(--min-width), calc(var(--left-text-margin-ratio) * calc(100% - var(--max-width))), calc(var(--left-text-margin-ratio) * 100%))
-                      clamp(var(--min-width), calc(var(--right-text-margin-ratio) * calc(100% - var(--max-width))), calc(var(--right-text-margin-ratio) * 100%));
+        .post-metadata,
+        h1, h2, h3, h4, h5, h6,
+        p,
+        ul/*:not(nav ul)*/,
+        ol:not(nav ol),
+        header, footer, main,article, section, blockquote,
+        table,
+        small,
+        pre
 
-  }
+    ):not(:is(.visually-hidden, [hidden])) {
 
-  :is(main, main > heading-anchors, body > footer) > :where(
+        margin-inline: var(--margin-inline-start) var(--margin-inline-end);
+    }
 
-      pre:not([class*="language-"]),
-      pre[class*="language-"]
+    :is(main, main > heading-anchors, body > footer) > :where(
 
-      ):not(:is(.visually-hidden, [hidden])) {
+        pre:not([class*="language-"]),
+        pre[class*="language-"]
 
-      --min-width: 1rem;
-      --max-width: 1200px;
-  }
+        ):not(:is(.visually-hidden, [hidden])) {
 
-      /* Markup : Sectioning */
+        --margin-inline-min: 1rem;
+        --content-max-width: 1200px;
 
-  :is(article, aside, nav, section) > :is(article, aside, nav, section) { margin-inline: 0; }
+        --margin-inline-start:	clamp(var(--margin-inline-min), calc(var(--margin-inline-start-ratio) * calc(100% - var(--content-max-width))), calc(var(--margin-inline-start-ratio) * 100%));
+        --margin-inline-end:    clamp(var(--margin-inline-min), calc(var(--margin-inline-end-ratio)   * calc(100% - var(--content-max-width))), calc(var(--margin-inline-end-ratio)   * 100%));
+    }
 
-  /* Images (full-width by default) */
+        /* Markup : Sectioning */
 
-  video, iframe, img, picture, figure, canvas {
+    :is(article, aside, nav, section) > :is(article, aside, nav, section) { margin-inline: 0; }
 
-      display: inline-block;
-      width:   100%;
-      height:  auto;
+    /* Images (full-width by default) */
 
-      vertical-align: middle;
-  }
+    video, iframe, img, picture, figure, canvas {
 
-  figure { margin: 0; }
+        display: inline-block;
+        width:   100%;
+        height:  auto;
 
-  video, iframe, img {
+        vertical-align: middle;
+    }
 
-      max-width: 100%;
-      aspect-ratio: calc(var(--width, 16) / var(--height, 10));
-      object-fit: cover;
-  }
+    figure { margin: 0; }
 
-  picture {
+    video, iframe, img {
 
-      margin: 0;
-      background-color: light-dark(white, black);
-  }
+        max-width: 100%;
+        aspect-ratio: calc(var(--width, 16) / var(--height, 10));
+        object-fit: cover;
+    }
 
-  img {
+    picture {
 
-      object-fit:      cover;
-      object-position: center;
-  }
+        margin: 0;
+        background-color: light-dark(white, black);
+    }
 
-      /* Markup : misc. */
+    img {
 
-  table           { max-width: 100%; margin-block: 1em; border-collapse: collapse; }
-  table caption   { padding: 0.25em 0.25rem; }
-  th, td          { padding: 0.25em 0.25rem; text-align: left; border: 1px solid var(--soft-border-color); }
-  figcaption      { text-align: center; padding: .3em .3rem; }
-  figcaption > *  { margin-inline: 0; }
+        object-fit:      cover;
+        object-position: center;
+    }
 
-  legend          { margin-inline: .5rem }
+        /* Markup : misc. */
 
-  blockquote      { padding: 0; border-left: .3rem solid var(--theme-color); }
+    table           { max-width: 100%; margin-block: 1em; border-collapse: collapse; }
+    table caption   { padding: 0.25em 0.25rem; }
+    th, td          { padding: 0.25em 0.25rem; text-align: left; border: 1px solid var(--soft-border-color); }
+    figcaption      { text-align: center; padding: .3em .3rem; }
+    figcaption > *  { margin-inline: 0; }
 
-  u, del          { text-decoration-color: red; }
-  u               { text-decoration-style: wavy; }
+    legend          { margin-inline: .5rem }
 
-  kbd {
+    blockquote      { padding: 0; border-left: .3rem solid var(--theme-color); }
 
-      display:            inline-block;
-      padding:            0.1em 0.2rem;
-      font-size:          0.825em;
+    u, del          { text-decoration-color: red; }
+    u               { text-decoration-style: wavy; }
 
-      color:              var(--field-text-color);
-      background-color:   var(--field-background-color);
-      border-radius:      0.25rem;
-      border:             2px solid var(--soft-border-color);
-      box-shadow:         var(--background-color);
-      box-shadow:         inset 0 -1px 0 0 var(--background-color);
-  }
+    kbd {
 
-  code {
+        display:            inline-block;
+        padding:            0.1em 0.2rem;
+        font-size:          0.825em;
 
-      padding:              0.1em 0.2rem;
+        color:              var(--field-text-color);
+        background-color:   var(--field-background-color);
+        border-radius:      0.25rem;
+        border:             2px solid var(--soft-border-color);
+        box-shadow:         var(--background-color);
+        box-shadow:         inset 0 -1px 0 0 var(--background-color);
+    }
 
-      color:              var(--field-text-color);
-      background-color:   var(--field-background-color);
-      border-color:       var(--soft-border-color);
-  }
+    code {
 
-  code:not(pre code) {
+        padding:            0.1em 0.2rem;
 
-      border: 1px solid var(--soft-border-color);
-  }
+        color:              var(--field-text-color);
+        background-color:   var(--field-background-color);
+        border-color:       var(--soft-border-color);
+    }
 
-  pre > code {
+    code:not(pre code) {
 
-    display: block;
-  }
+        border: 1px solid var(--soft-border-color);
+    }
 
-  /* Forms */
+    pre > code {
 
-  form p {
+      display: block;
+    }
 
-      display:         flex;
-      justify-content: flex-end;
-      flex-direction:  row-reverse;
-      flex-wrap:       wrap;
-      gap:             1em;
-      overflow:        hidden;
-  }
+    /* Forms */
 
-  form p :where(input, select, textarea) { width: min(40vw, 220px); }
-  form p input[type="file"]              { width: 100%; }
-  form p input[type="button"]            { width: auto; }
-  form p input[type="submit"]            { width: auto; }
-  form p input[type="reset"]             { width: auto; }
-  form p ::-webkit-file-upload-button    { width: 220px; margin-right: 1em; }
-  form textarea                          { width: 100%; }
+    form p {
 
-  /* Fixed header - Breakpoints - Depends on your navigation menu size */
+        display:         flex;
+        justify-content: flex-end;
+        flex-direction:  row-reverse;
+        flex-wrap:       wrap;
+        gap:             1em;
+        overflow:        hidden;
+    }
 
-                              body { --margin-for-header: 118px; }
-  @media (max-width: 960px) { body { --margin-for-header: 160px; } }
-  @media (max-width: 400px) { body { --margin-for-header: 220px; } }
+    form p :where(input, select, textarea) { width: min(40vw, 220px); }
+    form p input[type="file"]              { width: 100%; }
+    form p input[type="button"]            { width: auto; }
+    form p input[type="submit"]            { width: auto; }
+    form p input[type="reset"]             { width: auto; }
+    form p ::-webkit-file-upload-button    { width: 220px; margin-right: 1em; }
+    form textarea                          { width: 100%; }
 
-  /* Fixed header - layout */
+    /* Fixed header - Breakpoints - Depends on your navigation menu size */
 
-  body {
+                                body { --margin-for-header: 118px; }
+    @media (max-width: 960px) { body { --margin-for-header: 160px; } }
+    @media (max-width: 400px) { body { --margin-for-header: 220px; } }
 
-      padding-block-start: var(--margin-for-header);
-  }
+    /* Fixed header - layout */
 
-  body > header {
+    body {
 
-      width:      100%;
-      position:   fixed; /* KNOWN ISSUE: Fixed does not work well with scrollbar-gutter */
-      top:        0;
-      z-index:    1;
+        padding-block-start: var(--margin-for-header);
+    }
 
-      background-color: color-mix(in srgb, var(--background-color) 90%, transparent);
-  }
+    body > header {
 
-  /* Fixed header - https://11tytheme.sjoy.lol/ specific */
+        width:      100%;
+        position:   fixed; /* KNOWN ISSUE: Fixed does not work well with scrollbar-gutter */
+        top:        0;
+        z-index:    1;
 
-  /* Mobile friendly - Single handed / thumb friendly */
+        background-color: color-mix(in srgb, var(--background-color) 90%, transparent);
+    }
 
-  @media (max-width: 480px) {
+    /* Fixed header - https://11tytheme.sjoy.lol/ specific */
 
-      [href="#skip"]  { order: 2; }
-      body > header   { order: 1; }
+    /* Mobile friendly - Single handed / thumb friendly */
 
-      body {
+    @media (max-width: 480px) {
 
-          padding-block-start: unset;
-          padding-block-end:   var(--margin-for-header);
-      }
+        [href="#skip"]  { order: 2; }
+        body > header   { order: 1; }
 
-      body > header {
+        body {
 
-          top:      unset;
-          bottom:   0;
-      }
-  }
+            padding-block-start: unset;
+            padding-block-end:   var(--margin-for-header);
+        }
 
-  /* 11ty classes specific - Special lists */
+        body > header {
 
-  ul:is(.links-nextprev, .post-metadata) {
+            top:      unset;
+            bottom:   0;
+        }
+    }
 
-      list-style: none;
-      padding-inline-start: 0;
-      display: flex;
-      gap: 1em;
-      flex-wrap: wrap;
-  }
+    /* 11ty classes specific - Special lists */
 
-  ul:is(.links-nextprev, .post-metadata) li:before {
+    ul:is(.links-nextprev, .post-metadata) {
 
-      content: "\200B";
-      position: absolute;
-  }
+        list-style: none;
+        padding-inline-start: 0;
+        display: flex;
+        gap: 1em;
+        flex-wrap: wrap;
+    }
 
-  ul.links-nextprev {
+    ul:is(.links-nextprev, .post-metadata) li:before {
 
-      justify-content: space-between;
-  }
+        content: "\200B";
+        position: absolute;
+    }
 
-  li.links-nextprev-next {
+    ul.links-nextprev {
 
-      text-align: right;
-  }
+        justify-content: space-between;
+    }
 
-  /* 11ty classes specific - Message box */
+    li.links-nextprev-next {
 
-  .message-box {
+        text-align: right;
+    }
 
-      --color-message-box: light-dark(white, black);
+    /* 11ty classes specific - Message box */
 
-      --min-width: 1rem;
-      --max-width: 50vw;
-  }
+    .message-box {
 
-  /* 11ty classes specific - Metadata */
+        --color-message-box: light-dark(white, black);
 
-      :is(time, .post-tag) {
+        --margin-inline-min: 1rem;
+        --content-max-width: 50vw;
 
-          display: inline-block;
-      }
+        --margin-inline-start:	clamp(var(--margin-inline-min), calc(var(--margin-inline-start-ratio) * calc(100% - var(--content-max-width))), calc(var(--margin-inline-start-ratio) * 100%));
+        --margin-inline-end:    clamp(var(--margin-inline-min), calc(var(--margin-inline-end-ratio)   * calc(100% - var(--content-max-width))), calc(var(--margin-inline-end-ratio)   * 100%));
+    }
 
-  :is(time, .post-tag):before {
+    /* 11ty classes specific - Metadata */
 
-      display:            inline-block;
-      color:              color-mix(in srgb, currentColor 33%, transparent);
-      text-decoration:    none;
-      margin-inline-end:  .5em;
-  }
+        :is(time, .post-tag) {
 
-  .post-tag {
+            display: inline-block;
+        }
 
-      text-transform: capitalize;
-  }
+    :is(time, .post-tag):before {
 
-  .post-tag:before { content: "#"; }
-       time:before { content: "📅︎"; }
+        display:            inline-block;
+        color:              color-mix(in srgb, currentColor 33%, transparent);
+        text-decoration:    none;
+        margin-inline-end:  .5em;
+    }
+
+    .post-tag {
+
+        text-transform: capitalize;
+    }
+
+    .post-tag:before { content: "#"; }
+         time:before { content: "📅︎"; }
 
 
 } /* @layer villapirorum */
@@ -808,13 +835,16 @@ VillaPirorum - 11ty-Themes-joy - base blog theme
 
 :is(main, main > heading-anchors, body > footer) > :is(
 
-  pre:not([class*="language-"]),
-  pre[class*="language-"]
+    pre:not([class*="language-"]),
+    pre[class*="language-"]
 
-  ):not(:is(.visually-hidden, [hidden])) {
+    ):not(:is(.visually-hidden, [hidden])) {
 
-      --min-width: 1rem;
-      --max-width: 1200px;
+    --margin-inline-min: 1rem;
+    --content-max-width: 1200px;
 
-  margin-inline: max(var(--min-width), calc(0.5 * calc(100vw - var(--max-width))));
+    --margin-inline-start:	clamp(var(--margin-inline-min), calc(var(--margin-inline-start-ratio) * calc(100% - var(--content-max-width))), calc(var(--margin-inline-start-ratio) * 100%));
+    --margin-inline-end:    clamp(var(--margin-inline-min), calc(var(--margin-inline-end-ratio)   * calc(100% - var(--content-max-width))), calc(var(--margin-inline-end-ratio)   * 100%));
+
+    margin-inline: var(--margin-inline-start) var(--margin-inline-end);
 }
