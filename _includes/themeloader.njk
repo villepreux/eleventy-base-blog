@@ -1,25 +1,19 @@
-<link rel="preload" href="/css/original/index.css" as="style" />
-<link rel="preload" href="/css/classic/index.css" as="style" />
-<link rel="preload" href="/css/simple-purple/index.css" as="style" />
-<link rel="preload" href="/css/villapirorum/index.css" as="style" />
-
 <script>
-let params = new URLSearchParams(document.location.search);
-const css = params.get("theme") ?? sessionStorage.getItem("css");
-const mode = params.get("mode") ?? sessionStorage.getItem("mode");
-const preloads = document.querySelectorAll(`link[rel="preload"]:not([href*=${css}])`);
+  const head = document.querySelector('head');
+  const params = new URLSearchParams(document.location.search);
+  const css = params.get("theme") ?? sessionStorage.getItem("css");
+  const mode = params.get("mode") ?? sessionStorage.getItem("mode");
 
-for (const preload of preloads) {
-  preload.remove();
-}
+  const preload = document.createElement("link");
+  preload.setAttribute("rel","preload");
+  preload.setAttribute("href",`/css/${css}/index.css`);
+  preload.setAttribute("as","style");
+  head.prepend(preload);
 </script>
 
 <link id="current-style-sheet" rel="stylesheet" href="/css/original/index.css">
 
 <script>
   const currentStyleSheet = document.querySelector("#current-style-sheet");
-
-  if (css) {
-    currentStyleSheet.setAttribute("href", `/css/${css}/index.css`);
-  }
+  if (css) currentStyleSheet.setAttribute("href", `/css/${css}/index.css`);
 </script>
