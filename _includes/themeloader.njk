@@ -1,14 +1,15 @@
+<link rel="preload" href="/css/original/index.css" as="style" />
+<link rel="preload" href="/css/classic/index.css" as="style" />
+<link rel="preload" href="/css/simple-purple/index.css" as="style" />
+<link rel="preload" href="/css/villapirorum/index.css" as="style" />
+
 <script>
-  const head = document.querySelector('head');
-  const params = new URLSearchParams(document.location.search);
+  let params = new URLSearchParams(document.location.search);
   const css = params.get("theme") ?? sessionStorage.getItem("css");
   const mode = params.get("mode") ?? sessionStorage.getItem("mode");
-
-  const preload = document.createElement("link");
-  preload.setAttribute("rel","preload");
-  preload.setAttribute("href",`/css/${css}/index.css`);
-  preload.setAttribute("as","style");
-  head.prepend(preload);
+  
+  const preloads = document.querySelectorAll(`link[rel="preload"]:not([href*=${css}])`);
+  for (const preload of preloads) preload.remove();
 </script>
 
 <link id="current-style-sheet" rel="stylesheet" href="/css/original/index.css">
