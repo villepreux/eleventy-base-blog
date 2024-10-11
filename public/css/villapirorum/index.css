@@ -70,10 +70,6 @@ VillaPirorum - 11ty-Themes-joy - base blog theme
 
             navigation: auto;
         }
-
-        * {
-            view-transition-name: var(--view-transition-name);
-        }
     }
 
     /* Allow transitions to auto */
@@ -315,7 +311,7 @@ VillaPirorum - 11ty-Themes-joy - base blog theme
 
     @media (prefers-reduced-motion: no-preference) {
 
-        a { transition: .5s }
+        a { transition: .7s }
     }
 
     /* Layout - Navigation lists */
@@ -343,21 +339,29 @@ VillaPirorum - 11ty-Themes-joy - base blog theme
 
         main :is(
 
-            p, ul, ol,
+            p, ul, ol, pre, table,
             picture, img:not(picture img),
-            pre
 
             ) {
 
+            --appear-scale-x: .5;
+            --appear-scale-y: .5;
+
             animation:          appear linear;
             animation-timeline: view();
-            animation-range:    entry 0% entry 80%;
+            animation-range:    entry 0% entry min(20vh, 80%);
+            animation-duration: 1ms; /* For Firefox */
+        }
+
+        main :is(picture, img:not(picture img)) {
+
+            --appear-scale-x: 1;
         }
 
         @keyframes appear {
 
-              0% { opacity:   0%; transform: scale(1, 0.5); }
-            100% { opacity: 100%; transform: scale(1, 1.0); }
+              0% { opacity:   0%; transform: scale(var(--appear-scale-x), var(--appear-scale-y)); }
+            100% { opacity: 100%; transform: scale(1, 1); }
         }
     }
 
@@ -394,17 +398,19 @@ VillaPirorum - 11ty-Themes-joy - base blog theme
         a.home-link {
 
             font-size:          2em;
-            animation:          home-link ease both;
+            animation:          home-link-scroll ease both;
             animation-timeline: scroll();
             animation-range:    0% 50vh;
+            animation-duration: 1ms; /* For Firefox */
         }
 
-        @keyframes home-link {
+        @keyframes home-link-scroll {
 
               0% { font-size: 2em; }
             100% { font-size: 1em; }
         }
-    }
+
+    } /* @media (prefers-reduced-motion: no-preference) */
 
     /* Posts list */
 
@@ -650,7 +656,7 @@ VillaPirorum - 11ty-Themes-joy - base blog theme
         object-position: center;
     }
 
-        /* Markup : misc. */
+    /* Markup : misc. */
 
     table           { max-width: 100%; margin-block: 1em; border-collapse: collapse; }
     table caption   { padding: 0.25em 0.25rem; }
@@ -733,15 +739,148 @@ VillaPirorum - 11ty-Themes-joy - base blog theme
 
     body > header {
 
+        --header-color-transparency-opaque: 80%;
+        --header-blur-opaque: 4px;
+
         width:      100%;
         position:   fixed; /* KNOWN ISSUE: Fixed does not work well with scrollbar-gutter */
         top:        0;
         z-index:    1;
 
-        background-color: color-mix(in srgb, var(--background-color) 90%, transparent);
+        background-color: color-mix(in srgb, var(--background-color) var(--header-color-transparency-opaque), transparent);
+        backdrop-filter:  blur(var(--header-blur-opaque));
     }
 
     /* Fixed header - https://11tytheme.sjoy.lol/ specific */
+
+    @media (prefers-reduced-motion: no-preference) {
+
+        @property --header-color-transparency {
+
+            syntax: "<percentage>";
+            inherits: true;
+            initial-value: 0%;
+        }
+
+        @property --header-blur {
+
+            syntax: "<length>";
+            inherits: true;
+            initial-value: 0px;
+        }
+
+        body > header {
+
+            --header-color-transparency-start:  0%;
+            --header-color-transparency-end:    var(--header-color-transparency-opaque);
+
+            --header-blur-start:                0px;
+            --header-blur-end:                  var(--header-blur-opaque);
+
+            --header-color-transparency:        var(--header-color-transparency-start);
+            --header-blur:                      var(--header-blur-start);
+
+            background-color:   color-mix(in srgb, var(--background-color) var(--header-color-transparency), transparent);;
+            backdrop-filter:    blur(var(--header-blur));
+
+            animation:          header-scroll ease both;
+            animation-timeline: scroll();
+            animation-range:    0% 50vh;
+            animation-duration: 1ms; /* For Firefox */
+        }
+
+        @keyframes header-scroll {
+
+              0% { --header-color-transparency: var(--header-color-transparency-start); --header-blur: var(--header-blur-start);  }
+            100% { --header-color-transparency: var(--header-color-transparency-end);   --header-blur: var(--header-blur-end);    }
+        }
+
+        /**
+        * Show header on scroll up, hide on scroll down
+        * Based on Fabrizio Calderan (fabrizio.dev) demo
+        * https://codepen.io/fcalderan/full/LYKwyyd
+        * Itselft based on article by @bramus
+            * https://www.bram.us/2023/10/23/css-scroll-detection/
+        */
+
+        @property --scroll {
+
+            syntax: "<number>";
+            inherits: true;
+            initial-value: 0;
+        }
+
+        @property --scroll-delayed {
+
+            syntax: "<number>";
+            inherits: true;
+            initial-value: 0;
+        }
+
+        @property --scroll-direction {
+
+            syntax: "<number>";
+            inherits: true;
+            initial-value: 0;
+        }
+
+        @keyframes set-scroll-properties {
+
+            to {
+                --scroll:         1000;
+                --scroll-delayed: 1000;
+            }
+        }
+
+        :root {
+
+            --header-effect-duration: .5s;
+
+            animation: set-scroll-properties linear both;
+            animation-timeline: scroll(root);
+            animation-duration: 1ms; /* For Firefox */
+        }
+
+        body {
+
+            transition: --scroll-delayed calc(var(--header-effect-duration) + .01s);
+
+            --scroll-velocity:  calc(var(--scroll) - var(--scroll-delayed));
+            --scroll-speed:     max(var(--scroll-velocity), -1 * var(--scroll-velocity));
+            --scroll-direction: calc(var(--scroll-velocity) / var(--scroll-speed));
+        }
+
+        body > header {
+
+            top:   unset;
+            inset: 0 0 auto;
+
+            will-change:    transform;
+            transition:     transform var(--header-effect-duration);
+            transform:      translateY(var(--translate));
+
+            @container style(--scroll-direction: 0) {
+
+                transition-delay: calc(infinity * 1s);
+            }
+
+            @container style(not (--scroll-direction: 0)) {
+
+                transition-delay: 0s;
+            }
+
+            @container style(--scroll-direction: -1) {
+
+                --translate: 0;
+            }
+
+            @container style(--scroll-direction: 1) {
+
+                --translate: -100%;
+            }
+        }
+
+    } /* @media (prefers-reduced-motion: no-preference) */
 
     /* Mobile friendly - Single handed / thumb friendly */
 
@@ -758,8 +897,22 @@ VillaPirorum - 11ty-Themes-joy - base blog theme
 
         body > header {
 
-            top:      unset;
-            bottom:   0;
+            --header-color-transparency-start: 	var(--header-color-transparency-opaque);
+            --header-blur-start:                var(--header-blur-opaque);
+
+            top:        unset;
+            bottom:     0;
+            animation:  unset;
+
+            @container style(--scroll-direction: -1) {
+
+                --translate: 0;
+            }
+
+            @container style(--scroll-direction: 1) {
+
+                --translate: 100%;
+            }
         }
     }
 
@@ -848,3 +1001,4 @@ VillaPirorum - 11ty-Themes-joy - base blog theme
 
     margin-inline: var(--margin-inline-start) var(--margin-inline-end);
 }
+
