@@ -4,6 +4,8 @@ const eleventyNavigation = {
 	order: 2
 };
 ---
+{%- css %}{% include "node_modules/prismjs/themes/prism-okaidia.css" %}{% endcss %}
+
 # Contributors
 
 So far we have two contributors. Three contributors including the original!
