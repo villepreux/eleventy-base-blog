@@ -16,7 +16,7 @@ So far we have two contributors. Three contributors including the original!
   - [Classic](?theme=classic)
   - [Simple Purple](?theme=simple-purple)
 - **[Antoine Villepreux](https://villapirorum.netlify.app/web/)**
-	- [VillaPirorum](?theme=simple-purple)
+	- [VillaPirorum](?theme=villapirorum)
 
 ## How to contribute
 
