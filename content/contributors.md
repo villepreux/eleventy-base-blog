@@ -8,7 +8,7 @@ const eleventyNavigation = {
 
 # Contributors
 
-So far we have two contributors. Three contributors including the original!
+So far we have three contributors. Four contributors including the original!
 
 ## Current contributors
 
