@@ -1,0 +1,333 @@
+/* CSS Author: Den McHenry, https://denmchenry.com */
+
+/**
+ * Enhanced Contrast Grid: A 'light dark' theme for Eleventy Base Blog that 
+ * swaps black and white based on prefered color scheme and uses link colors 
+ * with a 7.1:1 contrast ratio for WCAG 2.1 AAA compliance with enhanced contrast.
+ */
+
+/* BEGIN A (more) Modern CSS reset by Andy Bell */
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Prevent font size inflation */
+html {
+  -moz-text-size-adjust: none;
+  -webkit-text-size-adjust: none;
+  text-size-adjust: none;
+}
+
+/* Remove default margin in favour of better control in authored CSS */
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+blockquote,
+dl,
+dd {
+  margin-block-end: 0;
+}
+
+/* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
+ul[role="list"],
+ol[role="list"] {
+  list-style: none;
+}
+
+/* Set core body defaults */
+body {
+  min-height: 100vh;
+  line-height: 1.5;
+}
+
+/* Set shorter line heights on headings and interactive elements */
+h1,
+h2,
+h3,
+h4,
+button,
+input,
+label {
+  line-height: 1.1;
+}
+
+/* Balance text wrapping on headings */
+h1,
+h2,
+h3,
+h4 {
+  text-wrap: balance;
+}
+
+/* A elements that don't have a class get default styles */
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+  color: currentColor;
+}
+
+/* Make images easier to work with */
+img,
+picture {
+  max-width: 100%;
+  display: block;
+}
+
+/* Inherit fonts for inputs and buttons */
+input,
+button,
+textarea,
+select {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+/* Make sure textareas without a rows attribute are not tiny */
+textarea:not([rows]) {
+  min-height: 10em;
+}
+
+/* Anything that has been anchored to should have extra scroll margin */
+:target {
+  scroll-margin-block: 5ex;
+}
+/* END A (more) Modern CSS Reset */
+
+/* BEGIN Custom CSS */
+:root {
+  --paper: white;
+  --ink: black;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: black;
+    --ink: white;
+  }
+}
+
+html {
+  background: var(--paper);
+  color: var(--ink);
+  color-scheme: light dark;
+  font-size: 100%;
+  text-size-adjust: none;
+}
+
+body {
+  border: 2rem solid var(--paper);
+  font-family: Avenir, Montserrat, Corbel, "URW Gothic", source-sans-pro,
+    sans-serif; /* Modern Font Stacks Geometric Humanist: https://github.com/system-fonts/modern-font-stacks#geometric-humanist */
+  font-size: clamp(1em, 3vw, 1.6em);
+  line-height: 1.4;
+  margin: 0;
+  min-height: 100vh;
+  padding: 0;
+}
+
+body > * {
+  padding: 2rem;
+}
+
+/* BEGIN Custom CSS */
+/* The grid */
+header {
+  border-right: .2em solid;
+  grid-area: header;
+}
+
+main {
+  grid-area: main;
+}
+
+footer {
+  border-top: .2em solid;
+  grid-area: footer;
+  text-align: right;
+}
+
+body {
+  display: grid;
+  grid-template-areas:
+    /* "a" catches arbitrary content before the header, such as an alert banner */
+    "a      a      a      a"
+    "header main   main   main"
+    "footer footer footer footer";
+  grid-template-rows: 1fr;
+}
+
+@media (orientation: portrait) {
+  body {
+    grid-template-columns: 100%;
+    grid-template-rows: auto 1fr auto;
+    grid-template-areas:
+      /* "a" catches arbitrary content before the header, such as an alert banner */
+      "a"
+      "header"
+      "main"
+      "footer";
+  }
+
+  header {
+    border-right: 0;
+    border-bottom: .2rem solid;
+  }
+}
+
+/* Housekeeping */
+/* Posts list */
+.postlist {
+  list-style-type: "";
+}
+.postlist-item {
+  counter-increment: start-from -1;
+}
+.postlist-item:before {
+  content: "" counter(start-from, decimal-leading-zero) ". ";
+  text-align: right;
+  margin-left: -1.5rem;
+}
+
+/* Don't let children affect muck up the spacing better controlled by their parents. */
+:first-child {
+  margin-block-start: 0;
+}
+
+:last-child {
+  margin-block-end: 0;
+}
+
+/* https://www.a11yproject.com/posts/how-to-hide-content/ */
+.visually-hidden {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.home-link {
+  font-family: Superclarendon, "Bookman Old Style", "URW Bookman",
+    "URW Bookman L", "Georgia Pro", Georgia, serif; /* Modern Font Stacks, Antique: https://github.com/system-fonts/modern-font-stacks#antique */
+  letter-spacing: -0.05em;
+  line-height: 1;
+  margin-block-end: 0;
+  text-wrap: balance;
+}
+
+a.home-link {
+  font-size: larger;
+}
+
+/* Metadata, links, etc. */
+nav ul,
+ul.post-metadata,
+ul.links-nextprev,
+time.postlist-date,
+footer,
+pre {
+  font-size: smaller !important;
+}
+
+header nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1em;
+  list-style-type: none;
+  margin: 1em 0 0;
+  padding-left: 0;
+}
+
+ul.post-metadata {
+  padding-left: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+ul.post-metadata :first-child {
+  width: 100%;
+}
+
+ul.links-nextprev {
+  padding-left: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  justify-content: space-between;
+}
+
+ul.links-nextprev > :only-child {
+  width: 100%;
+}
+
+li.links-nextprev-next {
+  text-align: right;
+}
+
+ol.postlist {
+  padding-left: 1.6rem;
+}
+
+li.postlist-item::before {
+  font-size: smaller;
+}
+
+@media (orientation: landscape) {
+  nav ul {
+    flex-direction: column;
+  }
+
+  header nav ul {
+    gap: 0.2em;
+    padding-left: 1em;
+  }
+}
+
+/* WCAG AAA link colors based on color scheme */
+@media (prefers-color-scheme: light) {
+  a:link {
+    color: #2345dc;
+  }
+  a:visited {
+    color: #981c98;
+  }
+  a:focus,
+  a:hover,
+  a:active {
+    color: #b40300;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  a:link {
+    color: #838bff;
+  }
+  a:visited {
+    color: #c876de;
+  }
+  a:focus,
+  a:hover,
+  a:active,
+  a:hover svg {
+    color: #ff6062;
+  }
+}
+/* END Custom CSS */

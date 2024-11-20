@@ -19,6 +19,8 @@ So far we have two contributors. Three contributors including the original!
   - [Simple Purple](?theme=simple-purple)
 - **[Antoine Villepreux](https://villapirorum.netlify.app/web/)**
 	- [VillaPirorum](?theme=villapirorum)
+- **[Den McHenry](https://denmchenry.com/)**
+	- [Enhanced Contrast Grid](?theme=enhanced-contrast-grid)
 
 ## How to contribute
 
