@@ -7,7 +7,7 @@
   let params = new URLSearchParams(document.location.search);
   const css = params.get("theme") ?? sessionStorage.getItem("css");
   const mode = params.get("mode") ?? sessionStorage.getItem("mode");
-  
+
   const preloads = document.querySelectorAll(`link[rel="preload"]:not([href*=${css}])`);
   for (const preload of preloads) preload.remove();
 </script>
@@ -15,6 +15,8 @@
 <link id="current-style-sheet" rel="stylesheet" href="/css/original/index.css">
 
 <script>
+	/*const pathPrefix = "/villepreux.net/web/11ty/11tytheme.sjoy.lol/";*/
+	const pathPrefix = "/web/11ty/11tytheme.sjoy.lol/";
   const currentStyleSheet = document.querySelector("#current-style-sheet");
-  if (css) currentStyleSheet.setAttribute("href", `/css/${css}/index.css`);
+  if (css) currentStyleSheet.setAttribute("href", pathPrefix+`css/${css}/index.css`);
 </script>

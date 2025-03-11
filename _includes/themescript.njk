@@ -8,7 +8,9 @@
   // const mode = sessionStorage.getItem("mode");
 
   function switchCSS(cssName) {
-    currentStyleSheet.setAttribute("href", `/css/${cssName}/index.css`);
+		/*const pathPrefix = "/villepreux.net/web/11ty/11tytheme.sjoy.lol/";*/
+		const pathPrefix = "/web/11ty/11tytheme.sjoy.lol/";
+    currentStyleSheet.setAttribute("href", pathPrefix+`css/${cssName}/index.css`);
     cssLink.setAttribute("href", `/css/${cssName}/index.css`);
     sessionStorage.setItem("css", cssName);
   }
