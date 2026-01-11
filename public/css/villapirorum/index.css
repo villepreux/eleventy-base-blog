@@ -91,7 +91,7 @@ VillaPirorum - 11ty-Themes-joy - base blog theme
 
 	html {
 
-		font-size:								var(--root-font-size);
+		font-size:								clamp(16px, var(--root-font-size, 2.5vw), 20px);
 		hanging-punctuation:			first allow-end last;
 		-webkit-font-smoothing:		antialiased;
 		-moz-osx-font-smoothing:	grayscale;
