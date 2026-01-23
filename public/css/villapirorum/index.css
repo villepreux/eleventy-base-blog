@@ -695,7 +695,7 @@ VillaPirorum - 11ty-Themes-joy - base blog theme
 
 															body { --margin-for-header: 118px; }
 	@media (max-width: 960px) { body { --margin-for-header: 160px; } }
-	@media (max-width: 400px) { body { --margin-for-header: 220px; } }
+	@media (max-width: 413px) { body { --margin-for-header: 220px; } }
 
 	/* Fixed header - layout */
 
